@@ -1,7 +1,7 @@
 from google.protobuf.internal.encoder import _VarintBytes
 from google.protobuf.internal.decoder import _DecodeVarint32
 
-import metric_pb2
+from proto import metric_pb2
 import random
 
 with open('out.bin', 'wb') as f:
@@ -15,3 +15,4 @@ with open('out.bin', 'wb') as f:
         size = my_metric.ByteSize()
         f.write(_VarintBytes(size))
         f.write(my_metric.SerializeToString())
+    f.write(_VarintBytes(0))

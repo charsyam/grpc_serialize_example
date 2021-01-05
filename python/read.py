@@ -1,7 +1,7 @@
 from google.protobuf.internal.encoder import _VarintBytes
 from google.protobuf.internal.decoder import _DecodeVarint32
 
-import metric_pb2
+from proto import metric_pb2
 import random
 
 with open('out.bin', 'rb') as f:
@@ -12,8 +12,11 @@ with open('out.bin', 'rb') as f:
 
     #while n < len(buf):
     ptr = buf
-    while l < len(buf):
+    while True:
         msg_len, new_pos = _DecodeVarint32(ptr, 0)
+        if msg_len == 0:
+            break
+
         n = new_pos
         msg_buf = ptr[n:n+msg_len]
         n += msg_len
